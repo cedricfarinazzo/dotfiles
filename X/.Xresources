@@ -21,6 +21,7 @@ Xterm*saveLines: 4096
 xterm*VT100.geometry: 80x32
 xterm*faceName: Liberation Mono:size=15:antialias=false
 xterm*font: 7x13
+
 !! drop in Solarized colorscheme for Xresources/Xdefaults
 
 !!SOLARIZED HEX     16/8 TERMCOL  XTERM/HEX   L*A*B      RGB         HSB

@@ -113,5 +113,3 @@ Print ASCII value of byte at address ADDR.
 Print "." if the value is unprintable.
 Usage: ascii_char ADDR
 end
-
-

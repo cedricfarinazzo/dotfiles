@@ -1,4 +1,4 @@
 #! /bin/sh
 
-vim +PlugInstall +qall
+vim +PlugInstall +PlugUpdate +qall
 

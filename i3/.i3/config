@@ -350,28 +350,6 @@ bar {
     }
 }
 
-#bar {
-#	i3bar_command i3bar
-#	status_command i3status --config ~/.i3status_top.conf
-#	position top
-        
-        # height of the bar in pixels
-#        height 20
-#        workspace_buttons no
-#    colors {
-#        background #283339
-#        statusline #F9FAF9
-#        separator  #4F5351
-
-#                      border  backgr. text
-#        focused_workspace  #FFDB00 #323232 #FDF6E3
-#        active_workspace   #595B5B #353836 #FDF6E3
-#        inactive_workspace #595B5B #283339 #EEE8D5
-#        binding_mode       #16a085 #2C2C2C #F9FAF9
-#        urgent_workspace   #FF3F3C #242424 #E5201D
-#    }
-#}
-
 # hide/unhide i3status bar
 bindsym $mod+m bar mode toggle
 

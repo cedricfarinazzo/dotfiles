@@ -92,6 +92,7 @@ set wildmenu
 " Set completion behavior, see :help wildmode for details
 set wildmode=longest:full,list:full
 
+set confirm
 
 """ Indent && Coding Style
 
@@ -227,6 +228,11 @@ Plug 'vim-pandoc/vim-pandoc'
 Plug 'ludovicchabant/vim-gutentags'
 
 Plug 'tpope/vim-fugitive'
+
+Plug 'MarcWeber/vim-addon-mw-utils'
+Plug 'tomtom/tlib_vim'
+Plug 'garbas/vim-snipmate'
+Plug 'honza/vim-snippets'
 
 call plug#end()
 

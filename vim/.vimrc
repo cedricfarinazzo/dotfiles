@@ -61,7 +61,7 @@ set autowrite
 set updatetime=500
 
 " Always show status line
-" set laststatus=2
+set laststatus=2
 
 " Disable swapfiles too
 set noswapfile

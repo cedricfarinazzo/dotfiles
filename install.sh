@@ -4,4 +4,4 @@ stow stow
 stow vim
 stow gdb
 stow git
-
+stow i3

@@ -1,0 +1,13 @@
+*.o
+*.a
+*.d
+main
+*.pyc
+*.exe
+a.out
+*.so
+*.gcov
+*.gcno
+*.gcda
+tags
+.gdb_history

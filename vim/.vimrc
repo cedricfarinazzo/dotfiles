@@ -221,6 +221,9 @@ Plug 'tpope/vim-fugitive'
 Plug 'scrooloose/syntastic'
 
 Plug 'scrooloose/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+
+Plug 'airblade/vim-gitgutter'
 
 Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'vim-pandoc/vim-pandoc'
@@ -234,7 +237,9 @@ Plug 'tomtom/tlib_vim'
 Plug 'garbas/vim-snipmate'
 Plug 'honza/vim-snippets'
 
+
 call plug#end()
+
 
 """ Plugins config
 
@@ -314,3 +319,13 @@ let g:syntastic_c_include_dirs = [ '.', '../include', 'include' ]
 " let g:loaded_syntastic_cmake_cmakelint_checker = 1
 let g:syntastic_c_check_header = 1
 
+"" vim-gitgutter
+
+highlight GitGutterAdd    guifg=#009900 guibg=#00151B ctermfg=2 ctermbg=0
+highlight GitGutterChange guifg=#bbbb00 guibg=#00151B ctermfg=3 ctermbg=0
+highlight GitGutterDelete guifg=#ff2222 guibg=#00151B ctermfg=1 ctermbg=0
+let g:gitgutter_sign_added = '+'
+let g:gitgutter_sign_modified = '~'
+let g:gitgutter_sign_removed = '-'
+let g:gitgutter_sign_removed_first_line = '-'
+let g:gitgutter_sign_modified_removed = '~~'

@@ -106,7 +106,7 @@ set backspace=indent,eol,start
 if version >= 703
     set colorcolumn=+1
 endif
- set colorcolumn=80
+set colorcolumn=80
 
 " Enable line wrapping
 " set wrap
@@ -190,6 +190,13 @@ map <F8> :cope<CR>
 " switch between header/source with F4
 map <F4> :e %:p:s,.h$,.X123X,:s,.c$,.h,:s,.X123X$,.c,<CR>
 
+""" Functions
+
+function! PlugLoaded(name)
+    return (
+                \ has_key(g:plugs, a:name) &&
+                \ isdirectory(g:plugs[a:name].dir))
+endfunction
 
 """ Plugins
 
@@ -244,44 +251,46 @@ call plug#end()
 """ Plugins config
 
 "" NerdTree
+if PlugLoaded('nerdtree')
 
-" Add spaces after comment delimiters by default
-let g:NERDSpaceDelims = 1
+    " Add spaces after comment delimiters by default
+    let g:NERDSpaceDelims = 1
 
-" Use compact syntax for prettified multi-line comments
-let g:NERDCompactSexyComs = 1
+    " Use compact syntax for prettified multi-line comments
+    let g:NERDCompactSexyComs = 1
 
-" Align line-wise comment delimiters flush left instead of following code indentation
-let g:NERDDefaultAlign = 'left'
+    " Align line-wise comment delimiters flush left instead of following code indentation
+    let g:NERDDefaultAlign = 'left'
 
-" Set a language to use its alternate delimiters by default
-let g:NERDAltDelims_java = 1
+    " Set a language to use its alternate delimiters by default
+    let g:NERDAltDelims_java = 1
 
-" Add your own custom formats or override the defaults
-let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
+    " Add your own custom formats or override the defaults
+    let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
 
-" Allow commenting and inverting empty lines (useful when commenting a region)
-let g:NERDCommentEmptyLines = 1
+    " Allow commenting and inverting empty lines (useful when commenting a region)
+    let g:NERDCommentEmptyLines = 1
 
-" Enable trimming of trailing whitespace when uncommenting
-let g:NERDTrimTrailingWhitespace = 1
+    " Enable trimming of trailing whitespace when uncommenting
+    let g:NERDTrimTrailingWhitespace = 1
 
-" Enable NERDCommenterToggle to check all selected lines is commented or not
-let g:NERDToggleCheckAllLines = 1
+    " Enable NERDCommenterToggle to check all selected lines is commented or not
+    let g:NERDToggleCheckAllLines = 1
 
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+    autocmd StdinReadPre * let s:std_in=1
+    autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
+    autocmd StdinReadPre * let s:std_in=1
+    autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
 
-map <C-t> :NERDTreeToggle<CR>
+    map <C-t> :NERDTreeToggle<CR>
 
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
-let g:NERDTreeDirArrowExpandable = '▸'
-let g:NERDTreeDirArrowCollapsible = '▾'
-let NERDTreeShowHidden=1
+    let g:NERDTreeDirArrowExpandable = '▸'
+    let g:NERDTreeDirArrowCollapsible = '▾'
+    let NERDTreeShowHidden=1
+endif
 
 "" Airline
 let g:airline_left_sep = ''
@@ -289,18 +298,18 @@ let g:airline_left_alt_sep = ''
 let g:airline_right_sep = ''
 let g:airline_right_alt_sep = ''
 let g:airline_symbols = {
- \ 'paste': 'PASTE',
- \ 'spell': 'SPELL',
- \ 'readonly': 'RO',
- \ 'whitespace': '!',
- \ 'linenr': 'ln',
- \ 'maxlinenr': ':',
- \ 'branch': '',
- \ 'notexists': '?',
- \ 'modified': '+',
- \ 'space': ' ',
- \ 'crypt': 'cr',
- \ }
+            \ 'paste': 'PASTE',
+            \ 'spell': 'SPELL',
+            \ 'readonly': 'RO',
+            \ 'whitespace': '!',
+            \ 'linenr': 'ln',
+            \ 'maxlinenr': ':',
+            \ 'branch': '',
+            \ 'notexists': '?',
+            \ 'modified': '+',
+            \ 'space': ' ',
+            \ 'crypt': 'cr',
+            \ }
 
 
 let g:airline#extensions#tabline#enabled = 1
@@ -321,11 +330,16 @@ let g:syntastic_c_check_header = 1
 
 "" vim-gitgutter
 
-highlight GitGutterAdd    guifg=#009900 guibg=#00151B ctermfg=2 ctermbg=0
-highlight GitGutterChange guifg=#bbbb00 guibg=#00151B ctermfg=3 ctermbg=0
-highlight GitGutterDelete guifg=#ff2222 guibg=#00151B ctermfg=1 ctermbg=0
-let g:gitgutter_sign_added = '+'
-let g:gitgutter_sign_modified = '~'
-let g:gitgutter_sign_removed = '-'
-let g:gitgutter_sign_removed_first_line = '-'
-let g:gitgutter_sign_modified_removed = '~~'
+if PlugLoaded('vim-gitgutter')
+
+    highlight GitGutterAdd    guifg=#009900 guibg=#00151B ctermfg=2 ctermbg=0
+    highlight GitGutterChange guifg=#bbbb00 guibg=#00151B ctermfg=3 ctermbg=0
+    highlight GitGutterDelete guifg=#ff2222 guibg=#00151B ctermfg=1 ctermbg=0
+    
+    let g:gitgutter_sign_added = '+'
+    let g:gitgutter_sign_modified = '~'
+    let g:gitgutter_sign_removed = '-'
+    let g:gitgutter_sign_removed_first_line = '-'
+    let g:gitgutter_sign_modified_removed = '~~'
+
+endif

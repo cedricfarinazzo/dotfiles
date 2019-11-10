@@ -14,7 +14,6 @@
 filetype indent plugin on
 
 " Force encoding to utf-8
-set encoding=utf-8
 set encoding=utf-8 fileencodings=
 
 " This changes the values of a LOT of options, enabling 
@@ -28,9 +27,6 @@ set mouse=a
 
 " Enables syntax highlighting
 syntax on
-
-" Show current mode
-set showmode
 
 " Show command being executed
 set showcmd
@@ -244,6 +240,9 @@ Plug 'tomtom/tlib_vim'
 Plug 'garbas/vim-snipmate'
 Plug 'honza/vim-snippets'
 
+Plug 'majutsushi/tagbar'
+
+Plug 'johngrib/vim-game-code-break'
 
 call plug#end()
 
@@ -293,30 +292,39 @@ if PlugLoaded('nerdtree')
 endif
 
 "" Airline
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
-let g:airline_symbols = {
-            \ 'paste': 'PASTE',
-            \ 'spell': 'SPELL',
-            \ 'readonly': 'RO',
-            \ 'whitespace': '!',
-            \ 'linenr': 'ln',
-            \ 'maxlinenr': ':',
-            \ 'branch': '',
-            \ 'notexists': '?',
-            \ 'modified': '+',
-            \ 'space': ' ',
-            \ 'crypt': 'cr',
-            \ }
+
+if PlugLoaded('vim-airline')
+
+    set noshowmode
+
+    let g:airline_left_sep = ''
+    let g:airline_left_alt_sep = ''
+    let g:airline_right_sep = ''
+    let g:airline_right_alt_sep = ''
+    let g:airline_symbols = {
+                \ 'paste': 'PASTE',
+                \ 'spell': 'SPELL',
+                \ 'readonly': 'RO',
+                \ 'whitespace': '!',
+                \ 'linenr': 'ln',
+                \ 'maxlinenr': ':',
+                \ 'branch': '',
+                \ 'notexists': '?',
+                \ 'modified': '+',
+                \ 'space': ' ',
+                \ 'crypt': 'cr',
+                \ }
 
 
-let g:airline#extensions#tabline#enabled = 1
+    let g:airline#extensions#tabline#enabled = 1
 
-let g:airline#extensions#tabline#formatter = 'default'
+    let g:airline#extensions#tagbar#flags = 'f'
 
-let g:airline_theme='badwolf'
+    let g:airline#extensions#tabline#formatter = 'default'
+
+    let g:airline_theme='dark_minimal'
+
+endif
 
 "" Syntastic
 
@@ -335,7 +343,7 @@ if PlugLoaded('vim-gitgutter')
     highlight GitGutterAdd    guifg=#009900 guibg=#00151B ctermfg=2 ctermbg=0
     highlight GitGutterChange guifg=#bbbb00 guibg=#00151B ctermfg=3 ctermbg=0
     highlight GitGutterDelete guifg=#ff2222 guibg=#00151B ctermfg=1 ctermbg=0
-    
+
     let g:gitgutter_sign_added = '+'
     let g:gitgutter_sign_modified = '~'
     let g:gitgutter_sign_removed = '-'
@@ -343,3 +351,8 @@ if PlugLoaded('vim-gitgutter')
     let g:gitgutter_sign_modified_removed = '~~'
 
 endif
+
+
+"" tagbar
+
+nmap <F9> :TagbarToggle<CR>

@@ -242,6 +242,8 @@ Plug 'honza/vim-snippets'
 
 Plug 'majutsushi/tagbar'
 
+Plug 'pboettch/vim-cmake-syntax'
+
 Plug 'johngrib/vim-game-code-break'
 
 call plug#end()
@@ -328,13 +330,17 @@ endif
 
 "" Syntastic
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_c_include_dirs = [ '.', '../include', 'include' ]
-" let g:loaded_syntastic_cmake_cmakelint_checker = 1
-let g:syntastic_c_check_header = 1
+if PlugLoaded('syntastic')
+
+    let g:syntastic_always_populate_loc_list = 1
+    let g:syntastic_auto_loc_list = 1
+    let g:syntastic_check_on_open = 1
+    let g:syntastic_check_on_wq = 0
+    let g:syntastic_c_include_dirs = [ '.', '../include', 'include', 'src', '../src' ]
+    " let g:loaded_syntastic_cmake_cmakelint_checker = 1
+    let g:syntastic_c_check_header = 1
+
+endif
 
 "" vim-gitgutter
 
@@ -355,4 +361,8 @@ endif
 
 "" tagbar
 
-nmap <F9> :TagbarToggle<CR>
+if PlugLoaded('tagbar')
+
+    map <F9> :TagbarToggle<CR>
+
+endif

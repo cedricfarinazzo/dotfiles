@@ -30,23 +30,7 @@ import pickle
 import subprocess
 import json
 
-
-def gen_color(step=1):
-    color = list()
-    r, g = 0, 255
-    while r <= 255:
-        color.append('#%X%X%X' % (r, 255, 0))
-        r += step
-
-    while g >= 0:
-        color.append('#%X%X%X' % (255, g, 0))
-        g -= step
-
-    return color
-
-
-# CONFIG
-
+# Colors
 
 WHT = "#FFFFFF"
 BLK = "#000000"
@@ -54,17 +38,50 @@ RED = "#FF0011"
 ORG = "#FF6100"
 YLW = "#E3FF00"
 GRN = "#00FF46"
-STEP = 5
-COLOR = []
-try:
-    with open("/tmp/.i3status_color.dat", "rb") as file:
-        COLOR = pickle.load(file)
-except Exception:
-    COLOR = gen_color(5)
-    with open("/tmp/.i3status_color.dat", "wb") as file:
-        pickle.dump(COLOR, file)
-NBCOLOR = len(COLOR)
 
+COLOR_CACHE_PATH = '/tmp/.i3status_color.dat'
+COLOR_STEP = 5
+COLOR = []
+NBCOLOR = 0
+
+
+def color_generate(step=1):
+    color = list()
+    r, g = 0, 255
+    while r <= 255:
+        color.append('#%X%X00' % (r, 255))
+        r += step
+
+    g = 255
+    while g >= 0:
+        color.append('#%X%X00' % (255, g))
+        g -= step
+
+    return color
+
+
+def color_init():
+    global COLOR
+    global NBCOLOR
+    try:
+        with open(COLOR_CACHE_PATH, "rb") as file:
+            COLOR = pickle.load(file)
+    except Exception:
+        COLOR = color_generate(COLOR_STEP)
+        with open(COLOR_CACHE_PATH, "wb") as file:
+            pickle.dump(COLOR, file)
+    NBCOLOR = len(COLOR)
+
+
+def color_get(val, mini, maxi):
+    step = (maxi - mini) / NBCOLOR
+    color_id = int((val - MIN_LOAD) / step)
+    return COLOR[color_id if color_id < NBCOLOR else -1]
+
+
+# CONFIG
+
+STEP = 5
 
 MIN_CPU = -5
 MAX_CPU = 106
@@ -75,8 +92,8 @@ MAX_RAM = 106
 MIN_TEMP = 19
 MAX_TEMP = 80
 
-MIN_LOAD = -1.5
-MAX_LOAD = 10
+MIN_LOAD = 0
+MAX_LOAD = 5
 
 MAX_LEN_WIRELESS_NAME = 7
 
@@ -236,6 +253,8 @@ def read_line():
 
 
 if __name__ == '__main__':
+    color_init()
+
     # Skip the first line which contains the version header.
     print_line(read_line())
 

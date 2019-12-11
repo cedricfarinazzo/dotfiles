@@ -100,12 +100,6 @@ MAX_LEN_WIRELESS_NAME = 7
 # FUNCTION
 
 
-def get_governor():
-    """ Get the current governor for cpu0, assuming all CPUs use the same. """
-    with open('/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor') as fp:
-        return fp.readlines()[0].strip()
-
-
 def get_wireless_json_part(json):
     for e in json:
         try:

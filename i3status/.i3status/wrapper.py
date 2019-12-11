@@ -80,13 +80,11 @@ def color_get(val, mini, maxi):
 
 # CONFIG
 
-STEP = 5
+MIN_CPU = 0
+MAX_CPU = 100
 
-MIN_CPU = -5
-MAX_CPU = 106
-
-MIN_RAM = -2
-MAX_RAM = 106
+MIN_RAM = 0
+MAX_RAM = 100
 
 MIN_TEMP = 19
 MAX_TEMP = 80

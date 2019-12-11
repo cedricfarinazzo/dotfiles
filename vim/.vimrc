@@ -146,6 +146,7 @@ nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 " and Makefile
 autocmd BufWritePre *.c %s/\s\+$//e
 autocmd BufWritePre *.h %s/\s\+$//e
+autocmd BufWritePre *.py %s/\s\+$//e
 autocmd BufWritePre Makefile %s/\s\+$//e
 
 
@@ -232,8 +233,6 @@ Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'vim-pandoc/vim-pandoc'
 
 Plug 'ludovicchabant/vim-gutentags'
-
-Plug 'tpope/vim-fugitive'
 
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'tomtom/tlib_vim'

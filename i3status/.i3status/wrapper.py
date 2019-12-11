@@ -25,7 +25,6 @@
 # details.
 
 import sys
-import os
 import pickle
 import subprocess
 import json
@@ -102,11 +101,8 @@ MAX_LEN_WIRELESS_NAME = 7
 
 def get_wireless_json_part(json):
     for e in json:
-        try:
-            if e['name'] == 'wireless':
-                return e
-        except Exception:
-            pass
+        if e and 'name' in e and e['name'] == 'wireless':
+            return e
     return None
 
 
@@ -114,7 +110,7 @@ def minimize_wireless_msg(json):
     try:
         text = json['full_text']
 
-        if "  no wlan  " in text or "  no wlan  " == text:
+        if "no wlan" in text:
             return
 
         pre = text[:text.index('at ')+3]
@@ -134,19 +130,7 @@ def update_cpu(cpujson):
     value = text[text.index('u ')+1:text.index('%')].split(' ')
     value = int(''.join(value))
 
-    try:
-        cpujson.pop('color')
-    except Exception:
-        pass
-
-    color = COLOR[0]
-    step = (MAX_CPU - MIN_CPU) / NBCOLOR
-    for i in range(NBCOLOR):
-        u = (i * step) + MIN_CPU
-        if value < u:
-            color = COLOR[i]
-            break
-    cpujson['color'] = color
+    cpujson['color'] = color_get(value, MIN_CPU, MAX_CPU)
 
 
 def update_load(loadjson):
@@ -154,48 +138,24 @@ def update_load(loadjson):
     text = text.replace('load ', '')
     text = ''.join(text.split(' '))
     text = text.replace(',', '.')
-    value = float(text)
 
-    try:
-        loadjson.pop('color')
-    except Exception:
-        pass
-
-    color = COLOR[0]
-    step = (MAX_LOAD - MIN_LOAD) / NBCOLOR
-    for i in range(NBCOLOR):
-        u = (i * step) + MIN_LOAD
-        if value < u:
-            color = COLOR[i]
-            break
-    loadjson['color'] = color
+    loadjson['color'] = color_get(float(text), MIN_LOAD, MAX_LOAD)
 
 
 def get_temp():
-    p = subprocess.Popen("sensors", stdout=subprocess.PIPE, shell=False)
-    (output, err) = p.communicate()
-    p_status = p.wait()
-    if p_status != 0:
-        return "ERROR", BLK
-    output = output.decode("utf-8")
-
     try:
+        p = subprocess.run(['sensors'], stdout=subprocess.PIPE)
+        if p.returncode != 0:
+            raise Exception
+        output = p.stdout.decode()
         cpu_temp = output[output.index("Package id 0: "):
                           output.index("(high = +100.0")]
         cpu_temp = cpu_temp.split(':')[1]
         cpu_temp = cpu_temp.split(' ')
         cpu_temp = ''.join(cpu_temp)
-
         temp = float(cpu_temp[1:cpu_temp.index("°C")])
 
-        color = COLOR[0]
-        step = (MAX_TEMP - MIN_TEMP) / NBCOLOR
-        for i in range(NBCOLOR):
-            u = (i * step) + MIN_TEMP
-            if temp < u:
-                color = COLOR[i]
-                break
-        return cpu_temp, color
+        return cpu_temp, color_get(temp, MIN_TEMP, MAX_TEMP)
     except Exception:
         return "ERROR", BLK
 
@@ -209,19 +169,23 @@ def normalize_ram(ram):
 
 
 def get_ram_usage():
-    tot_m, used_m, free_m = \
-        map(int, os.popen('free -t -m').readlines()[-1].split()[1:])
-    usage = int(((used_m/tot_m)*100))
-    ram = " " + str(usage) + "% (" + \
-          normalize_ram(used_m) + " / " + normalize_ram(tot_m) + ") "
-    color = COLOR[0]
-    step = (MAX_RAM - MIN_RAM) / NBCOLOR
-    for i in range(NBCOLOR):
-        u = (i * step) + MIN_RAM
-        if usage < u:
-            color = COLOR[i]
-            break
-    return ram, color
+    try:
+        p = subprocess.run(['free', '-t', '-m'], stdout=subprocess.PIPE)
+        if p.returncode != 0:
+            raise Exception
+        output = p.stdout.decode()
+        stat = output.split('\n')[-2].split(' ')
+        stat = [e for e in stat if e != ''][1:]
+
+        tot_m, used_m, _ = map(int, stat)
+        usage = int(used_m * 100 / tot_m)
+
+        ram = "%d%%(%s / %s)" % (usage, normalize_ram(used_m),
+                                 normalize_ram(tot_m))
+        return ram, color_get(usage, MIN_RAM, MAX_RAM)
+    except Exception as e:
+        raise e
+        return "ERROR", BLK
 
 
 # WRAPPER

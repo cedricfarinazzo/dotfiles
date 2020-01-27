@@ -3,11 +3,16 @@
 *.d
 main
 *.pyc
+
 *.exe
 a.out
 *.so
+
 *.gcov
 *.gcno
 *.gcda
+
 tags
+tags.lock
+
 .gdb_history

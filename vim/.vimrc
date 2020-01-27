@@ -187,6 +187,10 @@ map <F8> :cope<CR>
 " switch between header/source with F4
 map <F4> :e %:p:s,.h$,.X123X,:s,.c$,.h,:s,.X123X$,.c,<CR>
 
+" clang format
+map <C-K> :pyf /usr/share/clang/clang-format.py<CR>
+imap <C-K> <c-o>:pyf /usr/share/clang/clang-format.py<CR>
+
 """ Functions
 
 function! PlugLoaded(name)

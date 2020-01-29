@@ -142,13 +142,18 @@ set listchars=tab:>-,eol:¬,trail:\ ,nbsp:¤
 " Remove all trailing whitespace by pressing F5
 nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 
-" Remove all trailing whitespace before saving file for C files, Headers 
+" Highligh all trailing whitespace
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$\| \+\ze\t/
+
+" Remove all trailing whitespace before saving file for C/C++ files, Headers 
 " and Makefile
 autocmd BufWritePre *.c %s/\s\+$//e
 autocmd BufWritePre *.h %s/\s\+$//e
+autocmd BufWritePre *.cc %s/\s\+$//e
+autocmd BufWritePre *.hh %s/\s\+$//e
 autocmd BufWritePre *.py %s/\s\+$//e
 autocmd BufWritePre Makefile %s/\s\+$//e
-
 
 """ Persistence
 

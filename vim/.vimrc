@@ -146,12 +146,13 @@ nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 highlight ExtraWhitespace ctermbg=red guibg=red
 match ExtraWhitespace /\s\+$\| \+\ze\t/
 
-" Remove all trailing whitespace before saving file for C/C++ files, Headers 
+" Remove all trailing whitespace before saving file for C/C++ files, Headers
 " and Makefile
 autocmd BufWritePre *.c %s/\s\+$//e
 autocmd BufWritePre *.h %s/\s\+$//e
 autocmd BufWritePre *.cc %s/\s\+$//e
 autocmd BufWritePre *.hh %s/\s\+$//e
+autocmd BufWritePre *.hxx %s/\s\+$//e
 autocmd BufWritePre *.py %s/\s\+$//e
 autocmd BufWritePre Makefile %s/\s\+$//e
 
@@ -253,6 +254,8 @@ Plug 'majutsushi/tagbar'
 Plug 'pboettch/vim-cmake-syntax'
 
 Plug 'johngrib/vim-game-code-break'
+
+Plug 'CohenArthur/tiger-vim'
 
 call plug#end()
 

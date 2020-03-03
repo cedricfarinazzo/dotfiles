@@ -11,6 +11,7 @@ a.out
 *.gcov
 *.gcno
 *.gcda
+*.gch
 
 tags
 tags.lock

@@ -24,7 +24,11 @@
 # 2, as published by Sam Hocevar. See http://sam.zoy.org/wtfpl/COPYING for more
 # details.
 
+import os
 import sys
+import urllib
+import urllib.request
+import time
 import pickle
 import subprocess
 import json
@@ -38,6 +42,8 @@ ORG = "#FF6100"
 YLW = "#E3FF00"
 GRN = "#00FF46"
 
+COVID19_CACHE_PATH = '/tmp/.i3status_covid19.dat'
+COVID19_API_URL = 'https://coronavirus-tracker-api.herokuapp.com/confirmed'
 COLOR_CACHE_PATH = '/tmp/.i3status_color.dat'
 COLOR_STEP = 5
 COLOR = []
@@ -95,6 +101,31 @@ MAX_LOAD = 10
 MAX_LEN_WIRELESS_NAME = 7
 
 # FUNCTION
+
+def launch_covid19_scrapper():
+    def child():
+        while True:
+            try:
+                data = urllib.request.urlopen(COVID19_API_URL).read().decode('utf-8')
+                j = json.loads(data)
+                with open(COVID19_CACHE_PATH, "w+") as handler:
+                    handler.write(str(j['latest']))
+            except:
+                pass
+            time.sleep(60 * 5) # 5 min
+
+    pid = os.fork()
+    if pid == 0:
+        child()
+
+def get_covid19_data():
+    try:
+        with open(COVID19_CACHE_PATH, "r") as handler:
+            nb = handler.read()
+        return "Covid19: " + nb
+    except Exception:
+        return "Covid19: NO DATA"
+
 
 
 def get_wireless_json_part(json):
@@ -210,6 +241,7 @@ def read_line():
 
 if __name__ == '__main__':
     color_init()
+    launch_covid19_scrapper()
 
     # Skip the first line which contains the version header.
     print_line(read_line())
@@ -256,6 +288,15 @@ if __name__ == '__main__':
         # WIRELESS
         wireless = get_wireless_json_part(j)
         minimize_wireless_msg(wireless)
+
+        # Covid19
+        j.insert(9,
+                 {
+                     'name': 'Covid19',
+                     'markup': 'none',
+                     'color': '#F12F2F',
+                     'full_text': '%s' % get_covid19_data()
+                 })
 
         # and echo back new encoded json
         print_line(prefix+json.dumps(j))

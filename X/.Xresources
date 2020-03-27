@@ -2,7 +2,7 @@
 URxvt*buffered: true
 URxvt*cursorBlink: true
 URxvt*underlineColor: yellow
-URxvt*font:  xft:inconsolata:size=10:antialias=true
+URxvt*font:  xft:inconsolata:size=20:antialias=true
 URxvt*depth: 32
 URxvt*borderless: 1
 URxvt*scrollBar: false
@@ -14,6 +14,13 @@ URxvt.perl-ext-common: default,matcher
 URxvt.urlLauncher: firefox
 URxvt.matcher.button: 1
 
+URxvt.perl-ext-common: default,tabbed,matcher,resize-font,-tabbed
+URxvt.keysym.C-minus:     resize-font:smaller
+URxvt.keysym.C-plus:      resize-font:bigger
+URxvt.keysym.C-equal:     resize-font:reset
+URxvt.keysym.C-question:  resize-font:show
+URxvt.iso14755: false
+URxvt.iso14755_52: false
 
 ! XTerm
 XTerm*locale: true

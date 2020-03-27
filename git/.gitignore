@@ -1,6 +1,5 @@
 *.o
 *.a
-*.d
 main
 *.pyc
 

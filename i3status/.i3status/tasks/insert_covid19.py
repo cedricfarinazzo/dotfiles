@@ -20,7 +20,7 @@ def launch_covid19_scrapper():
                 req = urllib.request.Request(COVID19_API_URL, headers=headers)
                 with urllib.request.urlopen(req) as response:
                     html = response.read().decode('utf-8')
-                    m = re.search(r'<title>Coronavirus Update \(Live\):\s+(\d+,\d+)\s+Cases', html)
+                    m = re.search(r'<title>Coronavirus Update \(Live\):\s+(\d+(,\d+)*)\s+Cases', html)
                     with open(COVID19_CACHE_PATH, "w+") as handler:
                         handler.write(m.group(1))
             except:

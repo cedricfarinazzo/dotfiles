@@ -16,8 +16,8 @@ filetype indent plugin on
 " Force encoding to utf-8
 set encoding=utf-8 fileencodings=
 
-" This changes the values of a LOT of options, enabling 
-" features which are not Vi compatible but really really nice. 
+" This changes the values of a LOT of options, enabling
+" features which are not Vi compatible but really really nice.
 set nocompatible
 
 set term=rxvt-unicode-256color
@@ -37,7 +37,7 @@ set number
 " Hide buffers instead of closing them
 set hidden
 
-" Prevent the cursor from changing the current column 
+" Prevent the cursor from changing the current column
 " when jumping to other lines within the window
 set nostartofline
 
@@ -52,7 +52,7 @@ set autoread
 " Write the file when we leave the buffer
 set autowrite
 
-" The length of time Vim waits after you stop typing before it triggers 
+" The length of time Vim waits after you stop typing before it triggers
 " the plugin is governed
 set updatetime=500
 
@@ -156,6 +156,9 @@ autocmd BufWritePre *.hxx %s/\s\+$//e
 autocmd BufWritePre *.py %s/\s\+$//e
 autocmd BufWritePre Makefile %s/\s\+$//e
 
+" enable syntax highlighting for code in markdown file
+let g:markdown_fenced_languages = ['html', 'vim', 'php', 'python', 'bash=sh', 'c', 'cpp', 'md']
+
 """ Persistence
 
 " Set location of the viminfo file
@@ -224,38 +227,39 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'tpope/vim-surround'
-Plug 'scrooloose/nerdcommenter'
-Plug 'romainl/vim-qf'
-
+" airline theme
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
-Plug 'tpope/vim-fugitive'
-Plug 'scrooloose/syntastic'
-
+" files tree
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 
+" check
+Plug 'scrooloose/syntastic'
+
+" comment helper
+Plug 'scrooloose/nerdcommenter'
+
+" git
+Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 
-Plug 'vim-pandoc/vim-pandoc-syntax'
-Plug 'vim-pandoc/vim-pandoc'
-
+" tags
 Plug 'ludovicchabant/vim-gutentags'
+Plug 'majutsushi/tagbar'
 
+" snippets
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'tomtom/tlib_vim'
 Plug 'garbas/vim-snipmate'
 Plug 'honza/vim-snippets'
 
-Plug 'majutsushi/tagbar'
-
-Plug 'pboettch/vim-cmake-syntax'
-
-Plug 'johngrib/vim-game-code-break'
-
+" Tiger
 Plug 'CohenArthur/tiger-vim'
+
+" Fun
+Plug 'johngrib/vim-game-code-break'
 
 call plug#end()
 

@@ -11,3 +11,4 @@ stow dmenu
 stow -t  ~/.config config
 stow signaturc
 stow bin
+stow zsh

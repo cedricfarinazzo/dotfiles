@@ -1,6 +1,5 @@
 *.o
 *.a
-main
 *.pyc
 
 *.exe

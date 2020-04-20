@@ -3,8 +3,8 @@ URxvt.geometry:                    74x27
 URxvt*buffered: true
 URxvt*cursorBlink: true
 URxvt*underlineColor: yellow
-URxvt*font:  xft:DejaVu Sans Mono:size=14
-URxvt.boldFont:  xft:DejaVu Sans Mono:size=14
+URxvt.font:                        xft:DejaVu Sans Mono for Powerline:size=14
+URxvt.boldFont:                    xft:DejaVu Sans Mono for Powerline:size=14
 URxvt*depth: 32
 URxvt*borderless: 1
 URxvt*scrollBar: false
@@ -31,22 +31,22 @@ xterm*faceName: Liberation Mono:size=15:antialias=false
 xterm*font: 7x13
 
 #define S_dark_black         #001a21
-#define S_dark_red           #bd0a07
-#define S_dark_green         #058e05
-#define S_dark_yellow        #b58900
-#define S_dark_blue          #0066ff
-#define S_dark_magenta       #6c71c4
-#define S_dark_cyan          #33ccff
-#define S_dark_white         #fdf6e3
+#define S_dark_red           #b81916
+#define S_dark_green         #00ab00
+#define S_dark_yellow        #a8830e
+#define S_dark_blue          #1629f7
+#define S_dark_magenta       #3a2a9d
+#define S_dark_cyan          #339bff
+#define S_dark_white         #cccccc
 
 #define S_light_black        #073642
-#define S_light_red          #cb4b16
-#define S_light_green        #a5ff79
-#define S_light_yellow       #657b83
-#define S_light_blue         #839496
-#define S_light_magenta      #d33682
-#define S_light_cyan         #4fa6ff
-#define S_light_white        #eee8d5
+#define S_light_red          #ff0400
+#define S_light_green        #00ff00
+#define S_light_yellow       #ffeb00
+#define S_light_blue         #3093ff
+#define S_light_magenta      #a46fff
+#define S_light_cyan         #58adff
+#define S_light_white        #ffffff
 
 *background:            S_dark_black
 *foreground:            S_light_yellow
@@ -63,20 +63,20 @@ xterm*font: 7x13
 *color9:                S_light_red
 
 !! green dark/light
-*color2:                S_dark_green
-*color10:               S_light_green
+*color10:                S_dark_green
+*color2:               S_light_green
 
 !! yellow dark/light
 *color3:                S_dark_yellow
 *color11:               S_light_yellow
 
 !! blue dark/light
-*color4:                S_dark_blue
-*color12:               S_light_blue
+*color12:                S_dark_blue
+*color4:               S_light_blue
 
 !! magenta dark/light
-*color5:                 S_dark_magenta
-*color13:                S_light_magenta
+*color13:                 S_dark_magenta
+*color5:                S_light_magenta
 
 !! cyan dark/light
 *color6:                S_dark_cyan

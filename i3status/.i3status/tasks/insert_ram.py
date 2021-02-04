@@ -1,10 +1,13 @@
 import subprocess
+import re
 
 from i3status import Task, TaskInsert
 from .utils import color_get, BLK
 
 MIN_RAM = 0
 MAX_RAM = 100
+
+regex = re.compile('Total:\s*(\d+)\s+(\d+)')
 
 def normalize_ram(ram):
     if ram <= 999:
@@ -19,11 +22,12 @@ def get_ram_usage():
         p = subprocess.run(['free', '-t', '-m'], stdout=subprocess.PIPE)
         if p.returncode != 0:
             raise Exception
-        output = p.stdout.decode()
-        stat = output.split('\n')[-2].split(' ')
-        stat = [e for e in stat if e != ''][1:]
 
-        tot_m, used_m, _ = map(int, stat)
+        result = regex.match(p.stdout.decode().strip().split('\n')[-1])
+        if not result:
+            raise Exception
+
+        tot_m, used_m = int(result.group(1)), int(result.group(2))
         usage = int(used_m * 100 / tot_m)
 
         ram = "%d%%(%s / %s)" % (usage, normalize_ram(used_m),

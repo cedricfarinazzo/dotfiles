@@ -1,6 +1,6 @@
 [user]
-	name = FARINAZZO Cédric
-	email = cedric.farinazzo@epita.fr
+    name = FARINAZZO Cédric
+    email = cedric.farinazzo@epita.fr
     signingkey = 14C96080B874B21C
 
 [color]
@@ -41,9 +41,11 @@
 [push]
     default = simple
     followTags = true
+[pull]
+    rebase = true
+[merge]
+    ff = only
 [commit]
     gpgsign = true
     verbose = true
 
-[merge]
-    ff = only

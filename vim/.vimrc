@@ -383,3 +383,12 @@ if PlugLoaded('tagbar')
     map <F9> :TagbarToggle<CR>
 
 endif
+
+
+"" snipmate
+
+if PlugLoaded('vim-snipmate')
+
+    let g:snipMate = { 'snippet_version': 1 }
+
+endif

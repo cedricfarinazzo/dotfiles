@@ -104,11 +104,7 @@ ZSH_SYNTAX_HGL=
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-if [[ -n $SSH_CONNECTION ]]; then
-    export EDITOR='vim'
-else
-    export EDITOR='vim'
-fi
+export EDITOR='vim'
 
 # Compilation flags
 export CC=gcc
@@ -131,7 +127,6 @@ export SSH_KEY_PATH="~/.ssh/rsa_id"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 alias gti="git"
-alias phpd="php -S 0.0.0.0:5000 -ddisplay_errors=1 -dzend_extension=xdebug.so -dxdebug.remote_enable=1"
 
 alias ccd="${CC} ${CFLAGS}"
 alias ccdd="${CC} ${_DEBUG} ${CFLAGS}"
@@ -140,5 +135,9 @@ alias scmk="scan-build -analyze-headers -v -V -stats -maxloop 64 -o report make 
 
 alias cppd="g++ -Wall -Wextra -Werror -pedantic -std=c++17"
 alias cppdd="g++ -fsanitize=address -g3 -Wall -Wextra -Werror -pedantic -std=c++17"
+
+if [ -f $HOME/.zshrc.local ]; then
+    . $HOME/.zshrc.local
+fi
 
 zsh -c 'screenfetch -D arch'

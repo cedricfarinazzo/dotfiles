@@ -12,6 +12,7 @@ a.out
 *.gch
 
 tags
+tags.temp
 tags.lock
 
 .gdb_history

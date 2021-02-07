@@ -12,3 +12,4 @@ stow -t  ~/.config config
 stow signaturc
 stow bin
 stow zsh
+stow vnc

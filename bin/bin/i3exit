@@ -9,6 +9,9 @@ function main() {
         lock)
             i3lock-fancy-multimonitor -p
             ;;
+        lock-timer)
+            [ -f /sys/class/power_supply/BAT1/uevent ] && main lock
+            ;;
         logout)
             i3-msg exit
             ;;
@@ -19,7 +22,7 @@ function main() {
             $logind suspend
             ;;
         hibernate)
-            exit 2 $logind hibernate
+            [ ! -z $(swapon -s) ] && $logind hibernate
             ;;
         reboot)
             $logind reboot
@@ -29,7 +32,7 @@ function main() {
             ;;
         *)
             echo "== ! i3exit: missing or invalid argument ! =="
-            echo "Try again with: lock | logout | switch_user | suspend | hibernate | reboot | shutdown"
+            echo "Try again with: lock | lock-timer | logout | switch_user | suspend | hibernate | reboot | shutdown"
             exit 2
     esac
 }

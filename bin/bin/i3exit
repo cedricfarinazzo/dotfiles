@@ -4,13 +4,27 @@
 # with openrc use loginctl
 [[ $(cat /proc/1/comm) == "systemd" ]] && logind=systemctl || logind=loginctl
 
+if [ -f /sys/class/power_supply/BAT*/uevent ]; then
+    if [ -f /sys/class/power_supply/AC*/online ]; then
+        if [ $(cat /sys/class/power_supply/AC*/online) -eq 1 ]; then
+            on_battery=0
+        else
+            on_battery=1
+        fi
+    else
+        on_battery=1
+    fi
+else
+    on_battery=0
+fi
+
 function main() {
     case "$1" in
         lock)
             i3lock-fancy-multimonitor -p
             ;;
         lock-timer)
-            [ -f /sys/class/power_supply/BAT1/uevent ] && main lock
+            [ $on_battery -eq 1 ] && main lock
             ;;
         logout)
             i3-msg exit

@@ -51,13 +51,15 @@ class TaskUpdate(Task):
         self.callback(data[self.index])
         return data
 
-class TaskDelete(Task):
+class TaskDeleteIf(Task):
 
-    def __init__(self, index):
+    def __init__(self, index, callback):
         super().__init__(TaskType.DELETE, index)
+        self.callback = callback
 
     def process(self, data):
-        data.pop(self.index)
+        if self.callback(data[self.index]):
+            data.pop(self.index)
         return data
 
 

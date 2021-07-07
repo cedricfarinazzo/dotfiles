@@ -77,9 +77,6 @@ bindsym $mod+Ctrl+x --release exec --no-startup-id xkill
 exec --no-startup-id ~/bin/wallpaper.sh
 bindsym $mod+c exec ~/bin/change_wallpaper.sh
 
-# Kdeconnect
-exec --no-startup-id kdeconnect-indicator
-
 # Ckb-next
 exec --no-startup-id ckb-next -b
 

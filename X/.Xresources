@@ -1,3 +1,6 @@
+! Disable printing the terminal contents when pressing PrintScreen.
+URxvt.print-pipe: "cat > /dev/null"
+
 ! Color
 
 #define S_dark_black         #000000

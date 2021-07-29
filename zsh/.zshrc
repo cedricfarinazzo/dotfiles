@@ -140,4 +140,15 @@ if [ -f $HOME/.zshrc.local ]; then
     . $HOME/.zshrc.local
 fi
 
+kcn () {
+    if [[ "${#}" -ne 1 ]]
+    then
+        echo "USAGE: kcn <namespace>"
+        return 1
+    fi
+    kubectl config set-context "$(kubectl config current-context)" --namespace="${1}"
+}
+alias k="kubectl"
+[[ $commands[kubectl] ]] && source <(kubectl completion zsh)
+
 zsh -c 'screenfetch -D arch'

@@ -42,7 +42,7 @@
     default = simple
     followTags = true
 [pull]
-    rebase = true
+	rebase = true
 [merge]
     ff = only
 [commit]
